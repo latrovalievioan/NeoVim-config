@@ -10,6 +10,7 @@
 :set expandtab
 :set nohlsearch
 :set title
+:set clipboard=unnamed
 
 " PLUGGINS
 call plug#begin()
@@ -32,8 +33,27 @@ Plug 'https://github.com/leafgarland/typescript-vim'
 " Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'https://github.com/tpope/vim-rails'
 
+" ENABLE BLAMER
+let g:blamer_enabled = 1
 
 call plug#end()
+
+" GO TO DEFINITION COC MAPPINGS
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gD <Plug>(coc-implementation)
+nmap <silent> gr" Use K to show documentation in preview window
+
+" USE K TO SHOW DOCS
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction <Plug>(coc-references)
 
 "leader
 let mapleader = " "
